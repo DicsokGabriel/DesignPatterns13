@@ -8,6 +8,7 @@ public class Section implements Element, Observable{
     protected ArrayList<Element> content = new ArrayList<>();
     String content1;
     String oldContent;
+    ArrayList<Observer> observerList=new ArrayList<Observer>();
     public Section(String sectionTitle){
         this.sectionTitle=sectionTitle;
     }
@@ -44,12 +45,14 @@ public class Section implements Element, Observable{
         content1=newValue;
     }
     public void addObserver(Observer obs){
-
+        observerList.add(obs);
     }
     public void removeObserver(Observer obs){
-
+        observerList.remove(obs);
     }
     public void notifyObservers(){
-
+        for(Observer o : observerList){
+            o.update(oldContent,content1);
+        }
     }
 }
